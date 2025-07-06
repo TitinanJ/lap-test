@@ -1,27 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
-import Home from './home';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      return <Home />;
-    </div>
-  );
+  const [name, setName] = useState('');
+
+  const baseURL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : 'http://api:3000';
+
+  useEffect(() => {
+    axios.get(`${baseURL}/users`)
+      .then(res => setName(res.data[0].name))
+      .catch(err => console.error(err));
+  }, []);
+
+  return <h1>Your name is: {name}</h1>;
 }
 
 export default App;

@@ -25,7 +25,7 @@ services:
   web:
     build: ./frontend
     ports:
-      - "5173:5173"
+      - "3001:3000"
     depends_on:
       - api
 
